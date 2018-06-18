@@ -1,6 +1,6 @@
 LOCATION ?= eastus
-RESOURCE_GROUP ?= aks-test-rg
-AKS_CLUSTER_NAME ?= aksCluster
+RESOURCE_GROUP ?= aks-101-rg
+AKS_CLUSTER_NAME ?= aks-101-Cluster
 NODE_COUNT ?= 3
 SUBSCRUBTION_ID ?= 
 
@@ -15,7 +15,7 @@ set-account:
 .PHONY: create-cluster
 create-cluster:
 	az group create --name $(RESOURCE_GROUP) --location $(LOCATION)
-	az aks create --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME)
+	az aks create --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME) --node-count 3
 	az aks get-credentials --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME)
 
 .PHONY: scale-cluster
