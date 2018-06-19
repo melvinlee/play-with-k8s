@@ -40,6 +40,14 @@ delete-metricserver:
 deploy-hitcounter:
 	kubectl apply -f samples\hitcounter\
 
+.PHONY: deploy-nodeweb
+deploy-nodeweb:
+	kubectl apply -f samples/nodeweb/k8s
+
+.PHONY: get-stuff
+get-stuff:
+	kubectl get deploy,pod,svc,hpa
+
 .PHONY: scale-cluster
 scale-cluster:
 	az aks scale --name $(AKS_CLUSTER_NAME) --resource-group $(RESOURCE_GROUP)  --node-count $(NODE_COUNT)
