@@ -25,6 +25,16 @@ get-credential:
 get-node:
 	kubectl get nodes
 
+.PHONY: deploy-metricserver
+deploy-metricserver:
+	git clone https://github.com/kubernetes-incubator/metrics-server.git tmp/metrics-server
+	kubectl create -f /tmp/metrics-server/deploy/1.8+/
+
+.PHONY: delete-metricserver
+delete-metricserver:
+	 kubectl delete -f /tmp/metrics-server/deploy/1.8+/
+	 rm -rf tmp/metrics-server
+
 .PHONY: scale-cluster
 scale-cluster:
 	az aks scale --name $(AKS_CLUSTER_NAME) --resource-group $(RESOURCE_GROUP)  --node-count $(NODE_COUNT)
