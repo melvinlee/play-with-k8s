@@ -2,12 +2,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: hitcounter-frontend
-  labels:
-        app: hitcounter-frontend
 spec:
   template:
     metadata:
-      name: hitcounter-frontend
       labels:
         app: hitcounter-frontend
     spec:
