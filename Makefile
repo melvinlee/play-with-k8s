@@ -27,6 +27,7 @@ get-node:
 
 .PHONY: deploy-metricserver
 deploy-metricserver:
+	rm -rf tmp/metrics-server
 	git clone https://github.com/kubernetes-incubator/metrics-server.git tmp/metrics-server
 	kubectl create -f /tmp/metrics-server/deploy/1.8+/
 
