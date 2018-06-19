@@ -21,6 +21,10 @@ create-cluster:
 get-credential:
 	az aks get-credentials --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME)
 
+.PHONY: get-node
+get-node:
+	kubectl get nodes
+
 .PHONY: scale-cluster
 scale-cluster:
 	az aks scale --name $(AKS_CLUSTER_NAME) --resource-group $(RESOURCE_GROUP)  --node-count $(NODE_COUNT)
