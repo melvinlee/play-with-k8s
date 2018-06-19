@@ -16,6 +16,9 @@ set-account:
 create-cluster:
 	az group create --name $(RESOURCE_GROUP) --location $(LOCATION)
 	az aks create --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME) --node-count 3
+
+.PHONY: get-credential
+get-credential:
 	az aks get-credentials --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME)
 
 .PHONY: scale-cluster
