@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hitcounter-frontend
+  labels:
+        app: hitcounter-frontend
+spec:
+  template:
+    metadata:
+      name: hitcounter-frontend
+      labels:
+        app: hitcounter-frontend
+    spec:
+      containers:
+      - name: hitcounter
+        image: melvinlee/aspnetcore-hitcounter
+        ports:
+          - name: http
+            containerPort: 80
+        env:
+        - name: REDIS_URL
+          value: hitcounter-redis-master
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            cpu: 250m

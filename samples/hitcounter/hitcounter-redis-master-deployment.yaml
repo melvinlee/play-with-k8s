@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hitcounter-redis-master
+  labels:
+    app: hitcounter-redis-master
+spec:
+  template:
+    metadata:
+      name: hitcounter-redis-master
+      labels:
+        app: hitcounter-redis-master
+    spec:
+      containers:
+      - image: redis:alpine
+        name: hitcounter-redis-master
+        ports:
+        - containerPort: 6379
