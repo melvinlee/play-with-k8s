@@ -38,7 +38,7 @@ delete-metricserver:
 
 .PHONY: deploy-hitcounter
 deploy-hitcounter:
-	kubectl apply -f samples\hitcounter\
+	kubectl apply -f samples/hitcounter/
 
 .PHONY: deploy-nodeweb
 deploy-nodeweb:
