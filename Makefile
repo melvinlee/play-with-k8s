@@ -27,13 +27,13 @@ get-node:
 
 .PHONY: deploy-metricserver
 deploy-metricserver:
-	rm -rf tmp/metrics-server
+	rm -rf ./tmp/metrics-server
 	git clone https://github.com/kubernetes-incubator/metrics-server.git tmp/metrics-server
-	kubectl create -f tmp/metrics-server/deploy/1.8+/
+	kubectl create -f ./tmp/metrics-server/deploy/1.8+/
 
 .PHONY: delete-metricserver
 delete-metricserver:
-	 kubectl delete -f tmp/metrics-server/deploy/1.8+/
+	 kubectl delete -f ./tmp/metrics-server/deploy/1.8+/
 	 rm -rf tmp/metrics-server
 
 .PHONY: deploy-istio
@@ -44,15 +44,15 @@ deploy-istio:
 
 .PHONY: deploy-istio-dashboard
 deploy-istio-dashboard:
-	kubectl apply -f istio/install/kubernetes/addons/grafana.yaml
+	kubectl apply -f ./istio/install/kubernetes/addons/grafana.yaml
 
 .PHONY: deploy-hitcounter
 deploy-hitcounter:
-	kubectl apply -f samples/hitcounter/
+	kubectl apply -f ./samples/hitcounter/
 
 .PHONY: deploy-nodeweb
 deploy-nodeweb:
-	kubectl apply -f samples/nodeweb/k8s
+	kubectl apply -f ./samples/nodeweb/k8s
 
 .PHONY: get-stuff
 get-stuff:
