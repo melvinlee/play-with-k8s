@@ -2,9 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nodeweb
+  labels:
+    app: nodeweb
 spec:
   ports:
-  - name: "80"
+  - name: http
     port: 80
     targetPort: 80
   selector:
