@@ -3,6 +3,8 @@ RESOURCE_GROUP ?= aks-101-rg
 AKS_CLUSTER_NAME ?= aks-101-Cluster
 NODE_COUNT ?= 3
 SUBSCRUBTION_ID ?= 
+GRAFANA_POD_NAME ?= $(shell kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}')
+JAEGER_POD_NAME=$(shell kubectl -n istio-system get pod -l app=jaeger -o jsonpath='{.items[0].metadata.name}')
 
 .PHONY: get-account
 get-account:
@@ -61,6 +63,10 @@ get-stuff:
 .PHONY: scale-cluster
 scale-cluster:
 	az aks scale --name $(AKS_CLUSTER_NAME) --resource-group $(RESOURCE_GROUP)  --node-count $(NODE_COUNT)
+
+.PHONY: start-monitoring-services
+start-monitoring-services:
+	$(shell kubectl -n istio-system port-forward $(GRAFANA_POD_NAME) 3000:3000 && kubectl -n istio-system port-forward $(JAEGER_POD_NAME) 16686:16686)
 
 .PHONY: delete-cluster
 delete-cluster:

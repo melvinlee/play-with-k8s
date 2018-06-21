@@ -8,7 +8,7 @@ metadata:
   labels:
     app: istio-statsd-prom-bridge
     chart: mixer-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
     istio: mixer
 data:
@@ -22,7 +22,7 @@ metadata:
   labels:
     app: istio-mixer
     chart: mixer-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
     istio: mixer
 data:
@@ -525,7 +525,7 @@ metadata:
   labels:
     app: prometheus
     chart: prometheus-0.1.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
 data:
   prometheus.yml: |-
@@ -730,7 +730,7 @@ metadata:
   labels:
     app: istio
     chart: istio-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
 data:
   mesh: |-
@@ -823,7 +823,7 @@ metadata:
   labels:
     app: istio
     chart: istio-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
     istio: sidecar-injector
 data:
@@ -976,7 +976,7 @@ metadata:
     app: egressgateway
     chart: egressgateway-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 
 ---
 # Source: istio/charts/ingress/templates/serviceaccount.yaml
@@ -990,7 +990,7 @@ metadata:
     app: ingress
     chart: ingress-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 
 ---
 # Source: istio/charts/ingressgateway/templates/serviceaccount.yaml
@@ -1003,7 +1003,7 @@ metadata:
     app: ingressgateway
     chart: ingressgateway-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 
 ---
 # Source: istio/charts/mixer/templates/create-custom-resources-job.yaml
@@ -1016,7 +1016,7 @@ metadata:
     app: mixer
     chart: mixer-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
@@ -1027,7 +1027,7 @@ metadata:
     app: mixer
     chart: mixer-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 rules:
 - apiGroups: ["config.istio.io"] # istio CRD watcher
   resources: ["*"]
@@ -1050,7 +1050,7 @@ metadata:
     app: mixer
     chart: mixer-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -1072,7 +1072,7 @@ metadata:
   labels:
     app: mixer
     chart: mixer-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
 spec:
   template:
@@ -1080,7 +1080,7 @@ spec:
       name: istio-mixer-post-install
       labels:
         app: mixer
-        release: RELEASE-NAME
+        release: istio
     spec:
       serviceAccountName: istio-mixer-post-install-account
       containers:
@@ -1112,7 +1112,7 @@ metadata:
     app: mixer
     chart: mixer-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 
 ---
 # Source: istio/charts/pilot/templates/serviceaccount.yaml
@@ -1126,7 +1126,7 @@ metadata:
     app: istio-pilot
     chart: pilot-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 
 ---
 # Source: istio/charts/prometheus/templates/serviceaccount.yaml
@@ -1149,7 +1149,7 @@ metadata:
     app: security
     chart: security-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -1160,7 +1160,7 @@ metadata:
     app: security
     chart: security-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 
 ---
 # Source: istio/charts/sidecarInjectorWebhook/templates/serviceaccount.yaml
@@ -1173,7 +1173,7 @@ metadata:
     app: istio-sidecar-injector
     chart: sidecarInjectorWebhook-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 
 ---
 # Source: istio/charts/mixer/templates/crds.yaml
@@ -1906,7 +1906,7 @@ metadata:
     app: ingress
     chart: ingress-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
   name: istio-ingress-istio-system
 rules:
 - apiGroups: ["extensions"]
@@ -1928,7 +1928,7 @@ metadata:
     app: mixer
     chart: mixer-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 rules:
 - apiGroups: ["config.istio.io"] # istio CRD watcher
   resources: ["*"]
@@ -1952,7 +1952,7 @@ metadata:
     app: istio-pilot
     chart: pilot-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 rules:
 - apiGroups: ["config.istio.io"]
   resources: ["*"]
@@ -2032,7 +2032,7 @@ metadata:
     app: security
     chart: security-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
@@ -2053,7 +2053,7 @@ metadata:
     app: security
     chart: security-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 rules:
 - apiGroups: [""]
   resources: ["deployments", "serviceaccounts", "services"]
@@ -2073,7 +2073,7 @@ metadata:
     app: istio-sidecar-injector
     chart: sidecarInjectorWebhook-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 rules:
 - apiGroups: ["*"]
   resources: ["configmaps"]
@@ -2109,7 +2109,7 @@ metadata:
     app: mixer
     chart: mixer-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -2130,7 +2130,7 @@ metadata:
     app: istio-pilot
     chart: pilot-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -2151,7 +2151,7 @@ metadata:
     app: security
     chart: security-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -2170,7 +2170,7 @@ metadata:
     app: security
     chart: security-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -2191,7 +2191,7 @@ metadata:
     app: istio-sidecar-injector
     chart: sidecarInjectorWebhook-0.8.0
     heritage: Tiller
-    release: RELEASE-NAME
+    release: istio
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -2209,7 +2209,7 @@ metadata:
   namespace: istio-system    
   labels:
     chart: egressgateway-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
     istio: egressgateway
 spec:
@@ -2233,7 +2233,7 @@ metadata:
   namespace: istio-system
   labels:
     chart: ingress-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
     istio: ingress
 spec:
@@ -2259,7 +2259,7 @@ metadata:
   namespace: istio-system    
   labels:
     chart: ingressgateway-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
     istio: ingressgateway
 spec:
@@ -2290,7 +2290,7 @@ metadata:
   namespace: istio-system
   labels:
     chart: mixer-0.8.0
-    release: RELEASE-NAME
+    release: istio
     istio: mixer
 spec:
   ports:
@@ -2311,7 +2311,7 @@ metadata:
   namespace: istio-system
   labels:
     chart: mixer-0.8.0
-    release: RELEASE-NAME
+    release: istio
     istio: mixer
 spec:
   ports:
@@ -2339,7 +2339,7 @@ metadata:
   namespace: istio-system
   labels:
     chart: mixer-0.8.0
-    release: RELEASE-NAME
+    release: istio
     istio: statsd-prom-bridge
 spec:
   ports:
@@ -2360,7 +2360,7 @@ metadata:
   namespace: istio-system
   labels:
     chart: mixer-0.8.0
-    release: RELEASE-NAME
+    release: istio
     istio: mixer
 spec:
   template:
@@ -2402,7 +2402,7 @@ metadata:
   labels:
     app: istio-pilot
     chart: pilot-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
 spec:
   ports:
@@ -2489,7 +2489,7 @@ metadata:
   labels:
     app: egressgateway
     chart: egressgateway-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
     istio: egressgateway
 spec:
@@ -2609,7 +2609,7 @@ metadata:
   labels:
     app: ingress
     chart: ingress-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
     istio: ingress
 spec:
@@ -2733,7 +2733,7 @@ metadata:
   labels:
     app: ingressgateway
     chart: ingressgateway-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
     istio: ingressgateway
 spec:
@@ -2862,7 +2862,7 @@ metadata:
   namespace: istio-system
   labels:
     chart: mixer-0.8.0
-    release: RELEASE-NAME
+    release: istio
     istio: mixer
 spec:
   replicas: 1
@@ -2978,7 +2978,7 @@ metadata:
   namespace: istio-system
   labels:
     chart: mixer-0.8.0
-    release: RELEASE-NAME
+    release: istio
     istio: mixer
 spec:
   replicas: 1
@@ -3066,7 +3066,7 @@ metadata:
   labels:
     app: istio-pilot
     chart: pilot-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
     istio: pilot
   annotations:
@@ -3215,7 +3215,7 @@ metadata:
   labels:
     app: prometheus
     chart: prometheus-0.1.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
 spec:
   replicas: 1
@@ -3304,7 +3304,7 @@ metadata:
   labels:
     app: security
     chart: security-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
     istio: citadel
 spec:
@@ -3374,7 +3374,7 @@ metadata:
   labels:
     app: sidecarInjectorWebhook
     chart: sidecarInjectorWebhook-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
     istio: sidecar-injector
 spec:
@@ -3473,6 +3473,95 @@ spec:
                 - s390x
 
 ---
+# Source: istio/charts/tracing/templates/deployment.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: istio-tracing
+  namespace: istio-system
+  labels:
+    app: istio-tracing
+    chart: tracing-0.1.0
+    release: istio
+    heritage: Tiller
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jaeger
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+        - name: jaeger
+          image: "jaegertracing/all-in-one:1.5"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9411
+            - containerPort: 16686
+            - containerPort: 5775
+              protocol: UDP
+            - containerPort: 6831
+              protocol: UDP
+            - containerPort: 6832
+              protocol: UDP
+          env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: COLLECTOR_ZIPKIN_HTTP_PORT
+            value: "9411"
+          - name: MEMORY_MAX_TRACES
+            value: "50000"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 16686
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 16686
+          resources:
+            {}
+            
+      affinity:      
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: beta.kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - ppc64le
+                - s390x
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 2
+            preference:
+              matchExpressions:
+              - key: beta.kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+          - weight: 2
+            preference:
+              matchExpressions:
+              - key: beta.kubernetes.io/arch
+                operator: In
+                values:
+                - ppc64le
+          - weight: 2
+            preference:
+              matchExpressions:
+              - key: beta.kubernetes.io/arch
+                operator: In
+                values:
+                - s390x
+
+---
 # Source: istio/charts/security/templates/cleanup-old-ca.yaml
 
 apiVersion: batch/v1
@@ -3486,7 +3575,7 @@ metadata:
   labels:
     app: security
     chart: security-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
 spec:
   template:
@@ -3494,7 +3583,7 @@ spec:
       name: istio-cleanup-old-ca
       labels:
         app: security
-        release: RELEASE-NAME
+        release: istio
     spec:
       serviceAccountName: istio-cleanup-old-ca-service-account
       containers:
@@ -3579,6 +3668,51 @@ spec:
 
 
 ---
+# Source: istio/charts/tracing/templates/service.yaml
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: zipkin
+    namespace: istio-system
+    labels:
+      app: jaeger
+      chart: tracing-0.1.0
+      release: istio
+      heritage: Tiller
+  spec:
+    type: ClusterIP
+    ports:
+      - port: 9411
+        targetPort: 9411
+        protocol: TCP
+        name: http
+    selector:
+      app: jaeger
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: tracing
+    namespace: istio-system
+    labels:
+      app: jaeger
+      chart: tracing-0.1.0
+      release: istio
+      heritage: Tiller
+  spec:
+    ports:
+      - name: query-http
+        port: 80
+        protocol: TCP
+        targetPort: 16686
+    selector:
+      app: jaeger
+    type: LoadBalancer
+
+
+---
 # Source: istio/charts/sidecarInjectorWebhook/templates/mutatingwebhook.yaml
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
@@ -3588,7 +3722,7 @@ metadata:
   labels:
     app: istio-sidecar-injector
     chart: sidecarInjectorWebhook-0.8.0
-    release: RELEASE-NAME
+    release: istio
     heritage: Tiller
 webhooks:
   - name: sidecar-injector.istio.io
@@ -3614,4 +3748,12 @@ webhooks:
 
 ---
 # Source: istio/charts/prometheus/templates/ingress.yaml
+
+---
+# Source: istio/charts/tracing/templates/ingress.yaml
+
+---
+# Source: istio/charts/tracing/templates/service-jaeger.yaml
+
+
 
