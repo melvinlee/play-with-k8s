@@ -1,4 +1,6 @@
-# play-with-k8s
+# azure-aks
+
+Spin up Azure Kubernetes Service (AKS) cluster and deploy apps.
 
 ## Create Cluster
 
