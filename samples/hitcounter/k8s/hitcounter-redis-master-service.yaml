@@ -4,7 +4,7 @@ metadata:
   name: hitcounter-redis-master
 spec:
   ports:
-  - name: "6379"
+  - name: tcp
     port: 6379
     targetPort: 6379
   selector:
