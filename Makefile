@@ -3,7 +3,6 @@ RESOURCE_GROUP ?= aks-101-rg
 AKS_CLUSTER_NAME ?= aks-101-Cluster
 NODE_COUNT ?= 3
 SUBSCRUBTION_ID ?= 
-ISTIO_VERSION ?= 0.8.0
 
 .PHONY: get-account
 get-account:
@@ -39,14 +38,13 @@ delete-metricserver:
 
 .PHONY: deploy-istio
 deploy-istio:
-	helm template --namespace=istio-system istio-$(ISTIO_VERSION)/install/kubernetes/helm/istio > istio-$(ISTIO_VERSION)/istio.yaml
 	kubectl create ns istio-system
-	kubectl apply -n istio-system -f istio-$(ISTIO_VERSION)/istio.yaml
+	kubectl apply -n istio-system -f ./istio/istio.yaml
 	kubectl label namespace default istio-injection=enabled
 
 .PHONY: deploy-istio-dashboard
 deploy-istio-dashboard:
-	kubectl apply -f istio-$(ISTIO_VERSION)/install/kubernetes/addons/grafana.yaml
+	kubectl apply -f istio/install/kubernetes/addons/grafana.yaml
 
 .PHONY: deploy-hitcounter
 deploy-hitcounter:
