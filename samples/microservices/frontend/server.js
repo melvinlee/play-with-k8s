@@ -1,7 +1,8 @@
 const Koa = require('koa');
 const logger = require('koa-logger');
 const router = require('koa-router')();
-const request = require('request-promise-native')
+const request = require('request-promise-native');
+const os = require('os');
 const app = module.exports = new Koa();
 
 const PORT = process.env.PORT || 3000;
@@ -37,7 +38,7 @@ router.get('/',  async (ctx) => {
 
     const timeSpentbar = (Date.now() - beginbar) / 1000 + "secs";
 
-    ctx.body = `frontend:${VERSION}\n${timeSpentfoo} - ${BACKEND_URL_FOO} -> ${foostatus}\n${timeSpentbar} - ${BACKEND_URL_BAR} -> ${barstatus}`;
+    ctx.body = `frontend:${VERSION} (${os.hostname()})\n${timeSpentfoo} - ${BACKEND_URL_FOO} -> ${foostatus}\n${timeSpentbar} - ${BACKEND_URL_BAR} -> ${barstatus}`;
  //   res.end(`${service_name} - ${timeSpent}\n${upstream_uri} -> ${up}`)
 });
 
