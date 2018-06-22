@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: micro-frontend
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: micro-frontend
+        version: v1
+    spec:
+      containers:
+      - name: frontend
+        image: melvinlee/micro-frontend:v1
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+        env:
+          - name: BACKEND_URL_FOO
+            value: http://micro-backend-foo
+          - name: BACKEND_URL_BAR
+            value: http://micro-backend-bar
+        resources:
+          requests:
+            cpu: 80m
+          limits:
+            cpu: 100m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-frontend
+  labels:
+    app: micro-frontend
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    app: micro-frontend
+  type: LoadBalancer

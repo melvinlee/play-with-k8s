@@ -22,3 +22,13 @@ build-frontend:
 .PHONY: push-frontend
 push-frontend:
 	docker push melvinlee/micro-frontend:$(VERSION1)
+
+.PHONY: deploy
+deploy:
+	kubectl apply -f ./kube/backend-foo-v1.yaml
+	kubectl apply -f ./kube/backend-bar-v1.yaml
+	kubectl apply -f ./kube/frontend.yaml
+
+.PHONY: get-status
+get-status:
+	kubectl get deploy,pod,svc
