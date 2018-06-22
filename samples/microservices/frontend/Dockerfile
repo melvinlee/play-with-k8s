@@ -8,7 +8,8 @@ RUN npm install \
  && npm cache clean --force 
 COPY . /app
 
-ENV SERVICE_NAME=$service_name
+ARG version=v1
+
 ENV VERSION=$version
 ENV PORT 80
 EXPOSE 80

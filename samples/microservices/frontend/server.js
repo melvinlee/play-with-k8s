@@ -7,8 +7,8 @@ const app = module.exports = new Koa();
 
 const PORT = process.env.PORT || 3000;
 const VERSION = process.env.VERSION || 'v1';
-const BACKEND_URL_FOO = process.env.BACKEND_URL_FOO || "http://192.168.99.100";
-const BACKEND_URL_BAR = process.env.BACKEND_URL_BAR || "http://192.168.99.100:81";
+const BACKEND_URL_FOO = process.env.BACKEND_URL_FOO || "";
+const BACKEND_URL_BAR = process.env.BACKEND_URL_BAR || "";
 // middleware
 app.use(logger());
 

@@ -18,10 +18,12 @@ push-backend:
 .PHONY: build-frontend
 build-frontend:
 	docker build --no-cache -t melvinlee/micro-frontend:$(VERSION1) ./frontend
+	docker build --no-cache --build-arg version=v2 -t melvinlee/micro-frontend:$(VERSION2) ./frontend
 
 .PHONY: push-frontend
 push-frontend:
 	docker push melvinlee/micro-frontend:$(VERSION1)
+	docker push melvinlee/micro-frontend:$(VERSION2)
 
 .PHONY: deploy
 deploy:
