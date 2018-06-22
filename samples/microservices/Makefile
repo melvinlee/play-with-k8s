@@ -14,3 +14,11 @@ push-backend:
 	docker push melvinlee/$(DOCKER_IMAGE_FOO):$(VERSION1)
 	docker push melvinlee/$(DOCKER_IMAGE_FOO):$(VERSION2)
 	docker push melvinlee/$(DOCKER_IMAGE_BAR):$(VERSION1)
+
+.PHONY: build-frontend
+build-frontend:
+	docker build --no-cache -t melvinlee/micro-frontend:$(VERSION1) ./frontend
+
+.PHONY: push-frontend
+push-frontend:
+	docker push melvinlee/micro-frontend:$(VERSION1)
