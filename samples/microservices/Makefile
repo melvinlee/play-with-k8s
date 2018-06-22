@@ -6,7 +6,7 @@ VERSION2 ?=v2
 .PHONY: build-backend
 build-backend:
 	docker build --no-cache -t melvinlee/$(DOCKER_IMAGE_FOO):$(VERSION1) ./backend
-	docker build --no-cache --build-arg service_name=bar -t melvinlee/$(DOCKER_IMAGE_FOO):$(VERSION2) ./backend
+	docker build --no-cache --build-arg service_name=foo --build-arg version=v2 -t melvinlee/$(DOCKER_IMAGE_FOO):$(VERSION2) ./backend
 	docker build --no-cache --build-arg service_name=bar -t melvinlee/$(DOCKER_IMAGE_BAR):$(VERSION1) ./backend
 
 .PHONY: push-backend
