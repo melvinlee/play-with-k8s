@@ -40,6 +40,10 @@ router.get('/',  async (ctx) => {
 
     ctx.body = `frontend:${VERSION} (${os.hostname()})\n${timeSpentfoo} - ${BACKEND_URL_FOO} -> ${foostatus}\n${timeSpentbar} - ${BACKEND_URL_BAR} -> ${barstatus}`;
  //   res.end(`${service_name} - ${timeSpent}\n${upstream_uri} -> ${up}`)
+}).get("/readiness", (ctx) => {
+    ctx.status = 200;
+}).get("/liveness" , (ctx) => {
+    ctx.status = 200;
 });
 
 app.use(router.routes());
