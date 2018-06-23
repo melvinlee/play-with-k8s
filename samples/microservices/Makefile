@@ -31,6 +31,10 @@ deploy:
 	kubectl apply -f ./kube/backend-bar-v1.yaml
 	kubectl apply -f ./kube/frontend.yaml
 
-.PHONY: get-status
-get-status:
+.PHONY: cleanup
+cleanup:
+	kubectl delete -f ./kube/
+
+.PHONY: status
+status:
 	kubectl get deploy,pod,svc
