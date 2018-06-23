@@ -16,6 +16,18 @@ spec:
         imagePullPolicy: Always
         ports:
           - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
         env:
           - name: BACKEND_URL_FOO
             valueFrom:
