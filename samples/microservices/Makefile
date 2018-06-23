@@ -30,6 +30,7 @@ deploy:
 	kubectl apply -f ./kube/backend-foo-v1.yaml
 	kubectl apply -f ./kube/backend-bar-v1.yaml
 	kubectl apply -f ./kube/frontend.yaml
+	kubectl apply -f ./kube/config-frontend.yaml
 
 .PHONY: cleanup
 cleanup:

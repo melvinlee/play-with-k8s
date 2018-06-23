@@ -18,9 +18,15 @@ spec:
           - containerPort: 80
         env:
           - name: BACKEND_URL_FOO
-            value: http://micro-backend-foo
+            valueFrom:
+              configMapKeyRef:
+                name: micro-frontend-config
+                key: url.foo
           - name: BACKEND_URL_BAR
-            value: http://micro-backend-bar
+            valueFrom:
+              configMapKeyRef:
+                name: micro-frontend-config
+                key: url.bar
         resources:
           requests:
             cpu: 80m
