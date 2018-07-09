@@ -40,6 +40,11 @@ delete-metricserver:
 	 kubectl delete -f ./tmp/metrics-server/deploy/1.8+/
 	 rm -rf tmp/metrics-server
 
+.PHONY: deploy-helm
+deploy-helm:
+	kubectl create -f ./helm/helm-service-account.yaml
+	helm init --service-account tiller
+
 .PHONY: deploy-istio
 deploy-istio:
 	kubectl create ns istio-system
