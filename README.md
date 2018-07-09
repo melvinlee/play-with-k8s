@@ -7,7 +7,7 @@ Spin up Azure Kubernetes Service (AKS) cluster and deploy apps.
 In this quickstart, an AKS cluster is deployed using the Azure CLI.
 
 ```bash
-$ make create-cluster get-credential deploy-metricserver get-node
+$ make create-cluster get-credential deploy-metricserver deploy-helm get-node
 ```
 
 ### Horizontal Pod Autoscaler
