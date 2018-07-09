@@ -44,3 +44,20 @@ frontend:v1 (micro-frontend-5ddb9f45c6-g7ttq)
 0.093secs - http://micro-backend-foo -> backend-foo:v1
 0.002secs - http://micro-backend-bar -> backend-bar:v1
 ```
+
+## Scale
+
+Let's scale the frontend microservies from 2 to 5 instances
+
+```sh
+$ kubectl scale deploy/micro-frontend --replicas=5
+deployment.extensions "micro-frontend" scaled
+```
+
+Verify the pod count
+
+```sh
+$ kubectl get deploy/micro-frontend
+NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+micro-frontend   5         5         5            3           1h
+```
