@@ -2,6 +2,7 @@ DOCKER_IMAGE_FOO ?=micro-backend-foo
 DOCKER_IMAGE_BAR ?=micro-backend-bar
 VERSION1 ?=v1
 VERSION2 ?=v2
+INGRESS_HOST ?=$(shell kubectl get svc/micro-frontend -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 
 .PHONY: build-backend
 build-backend:
@@ -39,3 +40,7 @@ cleanup:
 .PHONY: status
 status:
 	kubectl get deploy,pod,svc
+
+.PHONY: curl
+curl:
+	http $(INGRESS_HOST)
