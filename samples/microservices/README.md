@@ -5,16 +5,16 @@
 Let's deploy all the services in this stack.
 
 ```sh
-kubectl apply -f ./kube/backend-foo-v1.yaml
-kubectl apply -f ./kube/backend-bar-v1.yaml
-kubectl apply -f ./kube/frontend.yaml
-kubectl apply -f ./kube/config-frontend.yaml
+$ kubectl apply -f ./kube/backend-foo-v1.yaml
+$ kubectl apply -f ./kube/backend-bar-v1.yaml
+$ kubectl apply -f ./kube/frontend.yaml
+$ kubectl apply -f ./kube/config-frontend.yaml
 ```
 
 Next, verify the deployments status
 
 ```sh
-kubectl get deploy,pod,svc
+$ kubectl get deploy,pod,svc
 ```
 
 ## Sending traffic
