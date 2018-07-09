@@ -17,7 +17,9 @@ set-account:
 .PHONY: create-cluster
 create-cluster:
 	az group create --name $(RESOURCE_GROUP) --location $(LOCATION)
-	az aks create --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME) --node-count 1
+	az aks create --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME) \
+	--enable-rbac \
+	--node-count 2
 
 .PHONY: get-credential
 get-credential:
