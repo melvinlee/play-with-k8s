@@ -3,7 +3,7 @@ RESOURCE_GROUP ?= aks-101-rg
 AKS_CLUSTER_NAME ?= aks-101-Cluster
 NODE_COUNT ?= 3
 SUBSCRUBTION_ID ?= 
-GRAFANA_POD_NAME ?= $(shell kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}')
+GRAFANA_POD_NAME=$(shell kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}')
 JAEGER_POD_NAME=$(shell kubectl -n istio-system get pod -l app=jaeger -o jsonpath='{.items[0].metadata.name}')
 
 .PHONY: get-account
@@ -17,7 +17,7 @@ set-account:
 .PHONY: create-cluster
 create-cluster:
 	az group create --name $(RESOURCE_GROUP) --location $(LOCATION)
-	az aks create --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME) --node-count 3
+	az aks create --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME) --node-count 1
 
 .PHONY: get-credential
 get-credential:
