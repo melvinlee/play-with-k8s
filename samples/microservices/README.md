@@ -64,3 +64,11 @@ Verify the pod count
 ```sh
 $ kubectl get deploy/micro-frontend -n simple-service
 ```
+
+## Clean
+
+When we're done with everything, we can simply delete the namespace
+
+```sh
+$ kubectl delete ns simple-service
+```
