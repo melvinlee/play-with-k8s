@@ -61,7 +61,7 @@ deploy-hitcounter:
 
 .PHONY: deploy-nodeweb
 deploy-nodeweb:
-	kubectl apply -f ./samples/nodeweb/k8s
+	kubectl apply -f ./samples/nodeweb/kube
 
 .PHONY: get-stuff
 get-stuff:
