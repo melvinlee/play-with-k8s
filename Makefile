@@ -57,7 +57,7 @@ deploy-istio-dashboard:
 
 .PHONY: deploy-hitcounter
 deploy-hitcounter:
-	kubectl apply -f ./samples/hitcounter/
+	kubectl apply -f ./samples/hitcounter/kube
 
 .PHONY: deploy-nodeweb
 deploy-nodeweb:
