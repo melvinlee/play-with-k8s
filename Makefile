@@ -1,8 +1,10 @@
-LOCATION ?= eastus
+LOCATION ?= japaneast
 RESOURCE_GROUP ?= aks-101-rg
 AKS_CLUSTER_NAME ?= aks-101-Cluster
 NODE_COUNT ?= 1
-SUBSCRUBTION_ID ?= 
+VM_SIZE ?= Standard_DS2_v2
+KUBE_VERSION = 1.10.5
+SUBSCRIBTION_ID ?= 
 GRAFANA_POD_NAME=$(shell kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}')
 JAEGER_POD_NAME=$(shell kubectl -n istio-system get pod -l app=jaeger -o jsonpath='{.items[0].metadata.name}')
 
@@ -20,6 +22,8 @@ create-cluster:
 	az aks create --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME) \
 	--enable-rbac \
 	--enable-addons http_application_routing \
+	--node-vm-size $(VM_SIZE) \
+	--kubernetes-version $(KUBE_VERSION) \
 	--node-count $(NODE_COUNT)
 
 .PHONY: get-credential
