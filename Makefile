@@ -20,7 +20,7 @@ create-cluster:
 	az aks create --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME) \
 	--enable-rbac \
 	--enable-addons http_application_routing \
-	--node-count 2
+	--node-count $(NODE_COUNT)
 
 .PHONY: get-credential
 get-credential:
