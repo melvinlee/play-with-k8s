@@ -7,6 +7,7 @@ KUBE_VERSION = 1.10.5
 SUBSCRIPTION_ID ?= 
 GRAFANA_POD_NAME=$(shell kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}')
 JAEGER_POD_NAME=$(shell kubectl -n istio-system get pod -l app=jaeger -o jsonpath='{.items[0].metadata.name}')
+APP_ID=$(shell az ad app list --query "[?displayName=='$(AKS_CLUSTER_NAME)'].{Id:appId}" --output table | tail -1)
 
 .PHONY: get-account
 get-account:
@@ -83,3 +84,4 @@ start-monitoring-services:
 .PHONY: delete-cluster
 delete-cluster:
 	az group delete --name $(RESOURCE_GROUP) --yes --no-wait
+	az ad app delete --id $(APP_ID)
