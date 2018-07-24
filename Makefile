@@ -1,7 +1,7 @@
 LOCATION ?= eastus
 RESOURCE_GROUP ?= aks-101-rg
 AKS_CLUSTER_NAME ?= aks-101-Cluster
-NODE_COUNT ?= 3
+NODE_COUNT ?= 1
 SUBSCRUBTION_ID ?= 
 GRAFANA_POD_NAME=$(shell kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}')
 JAEGER_POD_NAME=$(shell kubectl -n istio-system get pod -l app=jaeger -o jsonpath='{.items[0].metadata.name}')
