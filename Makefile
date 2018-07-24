@@ -4,7 +4,7 @@ AKS_CLUSTER_NAME ?= aks-101-Cluster
 NODE_COUNT ?= 1
 VM_SIZE ?= Standard_DS2_v2
 KUBE_VERSION = 1.10.5
-SUBSCRIBTION_ID ?= 
+SUBSCRIPTION_ID ?= 
 GRAFANA_POD_NAME=$(shell kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}')
 JAEGER_POD_NAME=$(shell kubectl -n istio-system get pod -l app=jaeger -o jsonpath='{.items[0].metadata.name}')
 
@@ -14,7 +14,7 @@ get-account:
 
 .PHONY: set-account
 set-account:
-	az account set -s $(SUBSCRUBTION_ID)
+	az account set -s $(SUBSCRUPTION_ID)
 
 .PHONY: create-cluster
 create-cluster:
