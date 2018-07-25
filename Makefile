@@ -85,3 +85,9 @@ start-monitoring-services:
 delete-cluster:
 	az group delete --name $(RESOURCE_GROUP) --yes --no-wait
 	az ad app delete --id $(APP_ID)
+
+.PHONY: delete-sp
+delete-sp:
+	if [ -f $(AKS_SP_FILE) ] ; then \
+    	rm $(AKS_SP_FILE); \
+	fi
