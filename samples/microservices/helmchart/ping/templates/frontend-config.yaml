@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: {{ template "ping.fullname" . }}-frontend-config
+  name: {{ template "ping.fullname" . }}-frontendConfig
   labels:
     app: {{ template "ping.name" . }}
     chart: {{ template "ping.chart" . }}
