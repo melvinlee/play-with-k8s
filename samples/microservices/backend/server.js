@@ -13,6 +13,10 @@ app.use(logger());
 // route definitions
 router.get('/',  async (ctx) => { 
     ctx.body = `backend-${SERVICE_NAME}:${VERSION}`;
+}).get("/readiness", (ctx) => {
+    ctx.status = 200;
+}).get("/liveness" , (ctx) => {
+    ctx.status = 200;
 });
 
 app.use(router.routes());
