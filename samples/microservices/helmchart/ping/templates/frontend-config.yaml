@@ -9,4 +9,4 @@ metadata:
     release: {{ .Release.Name }}
 data:
   url.foo: http://{{ template "ping.backendfoo.fullname" . }}
-  url.bar: http://{{ template "ping.backendfoo.fullname" . }}
+  url.bar: http://{{ template "ping.backendbar.fullname" . }}
