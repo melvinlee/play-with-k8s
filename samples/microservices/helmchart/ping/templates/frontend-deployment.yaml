@@ -42,6 +42,17 @@ spec:
               port: http
             initialDelaySeconds: 5
             periodSeconds: 10
+          env:
+            - name: BACKEND_URL_FOO
+              valueFrom:
+                configMapKeyRef:
+                  name: "{{ template "ping.fullname" . }}-frontendconfig"
+                  key: url.foo
+            - name: BACKEND_URL_BAR
+              valueFrom:
+                configMapKeyRef:
+                  name: "{{ template "ping.fullname" . }}-frontendconfig"
+                  key: url.bar
           resources:
 {{ toYaml .Values.frontend.resources | indent 12 }}
     {{- with .Values.nodeSelector }}

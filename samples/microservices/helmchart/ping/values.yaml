@@ -42,10 +42,6 @@ backendfoo:
 
 replicaCount: 2
 
-frontendconfig:
-  backendFooUrl: http://micro-backend-foo
-  backendBarUrl: http://micro-backend-bar
-
 ingress:
   enabled: false
   annotations: {}
