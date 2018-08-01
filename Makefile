@@ -1,6 +1,6 @@
 LOCATION ?= japaneast
-RESOURCE_GROUP ?= aks-101-rg
-AKS_CLUSTER_NAME ?= aks-101-Cluster
+RESOURCE_GROUP ?= kubernetes-rg
+AKS_CLUSTER_NAME ?= aks-cluster
 NODE_COUNT ?= 1
 VM_SIZE ?= Standard_DS2_v2
 KUBE_VERSION = 1.10.5
