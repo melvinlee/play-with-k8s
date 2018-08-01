@@ -58,6 +58,11 @@ backendbar:
     limits:
       cpu: 150m
 
+frontendhpa:
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 30
+
 replicaCount: 2
 
 ingress:
