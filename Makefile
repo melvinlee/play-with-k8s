@@ -1,6 +1,7 @@
 LOCATION ?= japaneast
 RESOURCE_GROUP ?= kubernetes-rg
 AKS_CLUSTER_NAME ?= aks-cluster
+ACR_NAME ?= kube3421
 NODE_COUNT ?= 1
 VM_SIZE ?= Standard_DS2_v2
 KUBE_VERSION = 1.10.5
@@ -27,6 +28,10 @@ create-cluster:
 	--node-vm-size $(VM_SIZE) \
 	--kubernetes-version $(KUBE_VERSION) \
 	--node-count $(NODE_COUNT)
+
+.PHONE: create-acr
+create-acr:
+	az acr create --name $(ACR_NAME) --resource-group $(RESOURCE_GROUP) --sku Basic --admin-enabled
 
 .PHONY: get-credential
 get-credential:
