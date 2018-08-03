@@ -1,4 +1,4 @@
-LOCATION ?= japaneast
+LOCATION ?= eastus
 RESOURCE_GROUP ?= kubernetes-rg
 AKS_CLUSTER_NAME ?= aks-cluster
 ACR_NAME ?= kube3421
@@ -21,6 +21,10 @@ set-account:
 
 .PHONY: create-cluster
 create-cluster:
+	#################################################################
+	# Create AKS Cluster
+	#################################################################
+
 	az group create --name $(RESOURCE_GROUP) --location $(LOCATION)
 	az aks create --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME) \
 	--enable-rbac \
@@ -31,10 +35,16 @@ create-cluster:
 
 .PHONE: create-acr
 create-acr:
+	#################################################################
+	# Create ACR
+	#################################################################
 	az acr create --name $(ACR_NAME) --resource-group $(RESOURCE_GROUP) --sku Basic --admin-enabled
 
 .PHONY: get-credential
 get-credential:
+	#################################################################
+	# Get AKS Credentials
+	#################################################################
 	az aks get-credentials --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME)
 
 .PHONY: get-node
@@ -43,6 +53,9 @@ get-node:
 
 .PHONY: deploy-metricserver
 deploy-metricserver:
+	#################################################################
+	# Deploy Kubernetes Metric Server
+	#################################################################
 	rm -rf ./tmp/metrics-server
 	git clone https://github.com/kubernetes-incubator/metrics-server.git tmp/metrics-server
 	kubectl create -f ./tmp/metrics-server/deploy/1.8+/
@@ -81,6 +94,9 @@ get-stuff:
 
 .PHONY: scale-cluster
 scale-cluster:
+	#################################################################
+	# Scale AKS Cluster
+	#################################################################
 	az aks scale --name $(AKS_CLUSTER_NAME) --resource-group $(RESOURCE_GROUP)  --node-count $(NODE_COUNT)
 
 .PHONY: start-monitoring-services
@@ -89,11 +105,17 @@ start-monitoring-services:
 
 .PHONY: delete-cluster
 delete-cluster:
+	#################################################################
+	# Delete AKS Cluster
+	#################################################################
 	az group delete --name $(RESOURCE_GROUP) --yes --no-wait
 	az ad app delete --id $(APP_ID)
 
 .PHONY: delete-sp
 delete-sp:
+	#################################################################
+	# Delete Service Principal Local Cache
+	#################################################################
 	if [ -f $(AKS_SP_FILE) ] ; then \
     	rm $(AKS_SP_FILE); \
 	fi
