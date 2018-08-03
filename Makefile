@@ -10,6 +10,7 @@ SUBSCRIPTION_ID ?=
 GRAFANA_POD_NAME=$(shell kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}')
 JAEGER_POD_NAME=$(shell kubectl -n istio-system get pod -l app=jaeger -o jsonpath='{.items[0].metadata.name}')
 APP_ID=$(shell az ad app list --query "[?displayName=='$(AKS_CLUSTER_NAME)'].{Id:appId}" --output table | tail -1)
+AKS_PARAM = --enable-rbac --enable-addons http_application_routing 
 
 .PHONY: get-account
 get-account:
@@ -24,14 +25,12 @@ create-cluster:
 	#################################################################
 	# Create AKS Cluster
 	#################################################################
-
 	az group create --name $(RESOURCE_GROUP) --location $(LOCATION)
 	az aks create --resource-group $(RESOURCE_GROUP) --name $(AKS_CLUSTER_NAME) \
-	--enable-rbac \
-	--enable-addons http_application_routing \
 	--node-vm-size $(VM_SIZE) \
 	--kubernetes-version $(KUBE_VERSION) \
-	--node-count $(NODE_COUNT)
+	--node-count $(NODE_COUNT) \
+	$(AKS_PARAM)
 
 .PHONE: create-acr
 create-acr:
@@ -56,14 +55,24 @@ deploy-metricserver:
 	#################################################################
 	# Deploy Kubernetes Metric Server
 	#################################################################
-	rm -rf ./tmp/metrics-server
-	git clone https://github.com/kubernetes-incubator/metrics-server.git tmp/metrics-server
-	kubectl create -f ./tmp/metrics-server/deploy/1.8+/
+	kubectl create -f https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/auth-delegator.yaml
+	kubectl create -f https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/auth-reader.yaml
+	kubectl create -f https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/metrics-apiservice.yaml
+	kubectl create -f https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/metrics-server-deployment.yaml
+	kubectl create -f https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/metrics-server-service.yaml
+	kubectl create -f https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/resource-reader.yaml
 
 .PHONY: delete-metricserver
 delete-metricserver:
-	 kubectl delete -f ./tmp/metrics-server/deploy/1.8+/
-	 rm -rf tmp/metrics-server
+	#################################################################
+	# Delete Kubernetes Metric Server
+	#################################################################
+	kubectl delete -f https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/auth-delegator.yaml
+	kubectl delete -f https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/auth-reader.yaml
+	kubectl delete -f https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/metrics-apiservice.yaml
+	kubectl delete -f https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/metrics-server-deployment.yaml
+	kubectl delete -f https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/metrics-server-service.yaml
+	kubectl delete -f https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/resource-reader.yaml
 
 .PHONY: deploy-helm
 deploy-helm:
