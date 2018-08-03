@@ -12,14 +12,6 @@ JAEGER_POD_NAME=$(shell kubectl -n istio-system get pod -l app=jaeger -o jsonpat
 APP_ID=$(shell az ad app list --query "[?displayName=='$(AKS_CLUSTER_NAME)'].{Id:appId}" --output table | tail -1)
 AKS_PARAM = --enable-rbac --enable-addons http_application_routing 
 
-.PHONY: get-account
-get-account:
-	az account show
-
-.PHONY: set-account
-set-account:
-	az account set -s $(SUBSCRUPTION_ID)
-
 .PHONY: create-cluster
 create-cluster:
 	#################################################################
@@ -89,13 +81,6 @@ deploy-istio:
 deploy-istio-dashboard:
 	kubectl apply -f ./istio/install/kubernetes/addons/grafana.yaml
 
-.PHONY: deploy-hitcounter
-deploy-hitcounter:
-	kubectl apply -f ./samples/hitcounter/kube
-
-.PHONY: deploy-nodeweb
-deploy-nodeweb:
-	kubectl apply -f ./samples/nodeweb/kube
 
 .PHONY: get-stuff
 get-stuff:
