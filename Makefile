@@ -68,6 +68,9 @@ delete-metricserver:
 
 .PHONY: deploy-helm
 deploy-helm:
+	#################################################################
+	# Deploy Helm
+	#################################################################
 	kubectl create -f ./helm/helm-service-account.yaml
 	helm init --service-account tiller
 
