@@ -43,6 +43,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   tags {
     source      = "terraform"
-    environment = "${var.environment}"
+    env         = "${var.environment}"
   }
 }

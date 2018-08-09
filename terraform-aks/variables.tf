@@ -30,6 +30,12 @@ variable "aks_name"{
   default     = "dev-aks"
 }
 
+variable "acr_name"{
+  type        = "string"
+  description = "Name of azure container registry."
+  default     = "devcontainerhub"
+}
+
 variable "environment" {
   type        = "string"
   description = "dev, test or production."

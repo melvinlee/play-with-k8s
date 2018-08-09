@@ -1,5 +1,5 @@
-LOCATION ?= eastus
-RESOURCE_GROUP ?= kubernetes-rg
+LOCATION ?= southeastasia
+RESOURCE_GROUP ?= dev-api-backend-rg
 AKS_CLUSTER_NAME ?= aks-cluster
 ACR_NAME ?= kube3421
 NODE_COUNT ?= 1
@@ -10,7 +10,7 @@ SUBSCRIPTION_ID ?=
 GRAFANA_POD_NAME=$(shell kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}')
 JAEGER_POD_NAME=$(shell kubectl -n istio-system get pod -l app=jaeger -o jsonpath='{.items[0].metadata.name}')
 APP_ID=$(shell az ad app list --query "[?displayName=='$(AKS_CLUSTER_NAME)'].{Id:appId}" --output table | tail -1)
-AKS_PARAM = --enable-rbac --enable-addons http_application_routing 
+AKS_PARAM =  --enable-addons http_application_routing 
 
 .PHONY: create-cluster
 create-cluster:
@@ -22,6 +22,7 @@ create-cluster:
 	--node-vm-size $(VM_SIZE) \
 	--kubernetes-version $(KUBE_VERSION) \
 	--node-count $(NODE_COUNT) \
+	--service-principal $(appId) --client-secret $(secretId) \
 	$(AKS_PARAM)
 
 .PHONE: create-acr

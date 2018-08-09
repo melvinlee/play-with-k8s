@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: micro-frontend-config
 data:
-  url.foo: http://micro-backend-foo
-  url.bar: http://micro-backend-bar
+  url.foo: http://micro-backend-foo.foo
+  url.bar: http://micro-backend-bar.bar
