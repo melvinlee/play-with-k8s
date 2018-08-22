@@ -13,6 +13,12 @@ resource "random_integer" "random_int" {
   max = 999
 }
 
+resource "tls_private_key" "key" {
+  algorithm   = "RSA"
+  ecdsa_curve = "P224"
+  rsa_bits    = "2048"
+}
+
 resource "azurerm_kubernetes_cluster" "aks" {
   name       = "${var.aks_name}-${random_integer.random_int.result}"
   location   = "${azurerm_resource_group.rg.location}"
@@ -25,7 +31,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     admin_username = "${var.linux_admin_username}"
 
     ssh_key {
-      key_data = "${var.linux_admin_ssh_publickey}"
+      key_data = "${trimspace(tls_private_key.key.public_key_openssh)}"
     }
   }
 
@@ -42,7 +48,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   tags {
-    source      = "terraform"
-    env         = "${var.environment}"
+    source = "terraform"
+    env    = "${var.environment}"
   }
 }

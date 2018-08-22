@@ -15,7 +15,7 @@ variable "client_secret" {
 variable "resource_group_name" {
   type        = "string"
   description = "Name of the azure resource group."
-  default     = "dev-k8s-rg"
+  default     = "aks-rg"
 }
 
 variable "resource_group_location" {
@@ -24,16 +24,16 @@ variable "resource_group_location" {
   default     = "southeastasia"
 }
 
-variable "aks_name"{
+variable "aks_name" {
   type        = "string"
   description = "Name of aks cluster."
-  default     = "dev-aks"
+  default     = "aks"
 }
 
-variable "acr_name"{
+variable "acr_name" {
   type        = "string"
   description = "Name of azure container registry."
-  default     = "devcontainerhub"
+  default     = "melvinhub"
 }
 
 variable "environment" {
@@ -45,9 +45,5 @@ variable "environment" {
 variable "linux_admin_username" {
   type        = "string"
   description = "User name for authentication to the Kubernetes linux agent virtual machines in the cluster."
-}
-
-variable "linux_admin_ssh_publickey" {
-  type        = "string"
-  description = "Configure all the linux virtual machines in the cluster with the SSH RSA public key string. The key should include three parts, for example 'ssh-rsa AAAAB...snip...UcyupgH azureuser@linuxvm'"
+  default     = "azureuser"
 }
