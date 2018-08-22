@@ -37,7 +37,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   agent_pool_profile {
     name    = "agentpool"
-    count   = "2"
+    count   = "3"
     vm_size = "Standard_DS2_v2"
     os_type = "Linux"
   }
@@ -50,5 +50,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
   tags {
     source = "terraform"
     env    = "${var.environment}"
+  }
+}
+
+resource "null_resource" "aks-credentials" {
+  provisioner "local-exec" {
+    command = "az aks get-credentials -n ${azurerm_kubernetes_cluster.aks.name} -g ${azurerm_resource_group.rg.name}"
   }
 }
