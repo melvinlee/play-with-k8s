@@ -67,6 +67,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
     }
   }
 
+  kubernetes_version = "${var.kubetnetes_version}"
+
   agent_pool_profile {
     name    = "agentpool"
     count   = "${var.aks_node_count}"
