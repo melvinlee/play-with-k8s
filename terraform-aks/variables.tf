@@ -30,6 +30,10 @@ variable "aks_name" {
   default     = "aks"
 }
 
+variable "aks_node_count" {
+  default = 2
+}
+
 variable "acr_name" {
   type        = "string"
   description = "Name of azure container registry."
