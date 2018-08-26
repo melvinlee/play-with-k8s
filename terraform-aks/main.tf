@@ -19,13 +19,45 @@ resource "tls_private_key" "key" {
   rsa_bits    = "2048"
 }
 
+resource "azurerm_virtual_network" "vnet" {
+  name                = "vnet"
+  address_space       = ["10.0.0.0/16"]
+  resource_group_name = "${azurerm_resource_group.rg.name}"
+  location            = "${azurerm_resource_group.rg.location}"
+
+  tags {
+    source = "terraform"
+    env    = "${var.environment}"
+  }
+}
+
+resource "azurerm_subnet" "aks" {
+  name                 = "aks"
+  resource_group_name  = "${azurerm_resource_group.rg.name}"
+  virtual_network_name = "${azurerm_virtual_network.vnet.name}"
+  address_prefix       = "10.0.1.0/28"
+}
+
+resource "azurerm_subnet" "web" {
+  name                 = "web"
+  resource_group_name  = "${azurerm_resource_group.rg.name}"
+  virtual_network_name = "${azurerm_virtual_network.vnet.name}"
+  address_prefix       = "10.0.2.0/24"
+}
+
+resource "azurerm_subnet" "apigateway" {
+  name                 = "apigateway"
+  resource_group_name  = "${azurerm_resource_group.rg.name}"
+  virtual_network_name = "${azurerm_virtual_network.vnet.name}"
+  address_prefix       = "10.0.3.0/28"
+}
+
 resource "azurerm_kubernetes_cluster" "aks" {
   name       = "${var.aks_name}-${random_integer.random_int.result}"
   location   = "${azurerm_resource_group.rg.location}"
   dns_prefix = "${var.aks_name}-${random_integer.random_int.result}"
 
   resource_group_name = "${azurerm_resource_group.rg.name}"
-  kubernetes_version  = "1.10.5"
 
   linux_profile {
     admin_username = "${var.linux_admin_username}"
@@ -40,11 +72,21 @@ resource "azurerm_kubernetes_cluster" "aks" {
     count   = "${var.aks_node_count}"
     vm_size = "Standard_DS2_v2"
     os_type = "Linux"
+
+    vnet_subnet_id = "${azurerm_subnet.aks.id}"
+    max_pods       = 50
   }
 
   service_principal {
     client_id     = "${var.client_id}"
     client_secret = "${var.client_secret}"
+  }
+
+  network_profile {
+    network_plugin     = "azure"
+    service_cidr       = "10.100.0.0/16"
+    dns_service_ip     = "10.100.0.10"
+    docker_bridge_cidr = "172.17.0.1/16"
   }
 
   tags {
