@@ -2,6 +2,8 @@
 # RESOURCES
 ##################################################################################
 
+data "azurerm_subscription" "subscription" {}
+
 resource "azurerm_resource_group" "rg" {
   name     = "${var.resource_group_name}"
   location = "${var.resource_group_location}"
@@ -20,7 +22,7 @@ resource "tls_private_key" "key" {
 }
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = "vnet"
+  name                = "one-vnet"
   address_space       = ["10.0.0.0/16"]
   resource_group_name = "${azurerm_resource_group.rg.name}"
   location            = "${azurerm_resource_group.rg.location}"
@@ -31,26 +33,39 @@ resource "azurerm_virtual_network" "vnet" {
   }
 }
 
-resource "azurerm_subnet" "aks" {
-  name                 = "aks"
+resource "azurerm_subnet" "frontend" {
+  name                 = "frontend"
   resource_group_name  = "${azurerm_resource_group.rg.name}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
   address_prefix       = "10.0.1.0/28"
 }
 
-resource "azurerm_subnet" "web" {
-  name                 = "web"
+resource "azurerm_subnet" "backend" {
+  name                 = "backend"
   resource_group_name  = "${azurerm_resource_group.rg.name}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
   address_prefix       = "10.0.2.0/24"
 }
 
-resource "azurerm_subnet" "apigateway" {
-  name                 = "apigateway"
+resource "azurerm_subnet" "external" {
+  name                 = "external"
   resource_group_name  = "${azurerm_resource_group.rg.name}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
   address_prefix       = "10.0.3.0/28"
 }
+
+resource "azurerm_subnet" "x-site" {
+  name                 = "x-site"
+  resource_group_name  = "${azurerm_resource_group.rg.name}"
+  virtual_network_name = "${azurerm_virtual_network.vnet.name}"
+  address_prefix       = "10.0.4.0/28"
+}
+
+# resource "azurerm_role_assignment" "role" {
+#   scope                = "${data.azurerm_subscription.subscription.id}/resourceGroups/${azurerm_resource_group.rg.name}"
+#   role_definition_name = "Owner"
+#   principal_id         = "${var.client_id}"
+# }
 
 resource "azurerm_kubernetes_cluster" "aks" {
   name       = "${var.aks_name}-${random_integer.random_int.result}"
@@ -75,8 +90,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
     vm_size = "Standard_DS2_v2"
     os_type = "Linux"
 
-    vnet_subnet_id = "${azurerm_subnet.aks.id}"
-    max_pods       = 50
+    vnet_subnet_id = "${azurerm_subnet.backend.id}"
+    max_pods       = 30
   }
 
   service_principal {
