@@ -99,6 +99,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
     client_secret = "${var.client_secret}"
   }
 
+  role_based_access_control  {
+    enabled = true  
+  }
+
   network_profile {
     network_plugin     = "azure"
     service_cidr       = "10.100.0.0/16"
