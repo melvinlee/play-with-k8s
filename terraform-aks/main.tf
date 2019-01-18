@@ -70,7 +70,7 @@ resource "azurerm_subnet" "x-site" {
 resource "azurerm_kubernetes_cluster" "aks" {
   name       = "${var.aks_name}-${random_integer.random_int.result}"
   location   = "${azurerm_resource_group.rg.location}"
-  dns_prefix = "${var.aks_name}-${random_integer.random_int.result}"
+  dns_prefix = "${var.aks_name}-${random_integer.random_int.result}-k8s"
 
   resource_group_name = "${azurerm_resource_group.rg.name}"
 
@@ -89,6 +89,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     count   = "${var.aks_node_count}"
     vm_size = "Standard_DS2_v2"
     os_type = "Linux"
+    os_disk_size_gb = 30
 
     vnet_subnet_id = "${azurerm_subnet.backend.id}"
     max_pods       = 30
