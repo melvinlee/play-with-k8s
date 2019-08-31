@@ -34,6 +34,21 @@ terraform plan -var-file=variables.tfvars -out=aks.tfplan
 terraform apply aks.tfplan
 ```
 
+## Kubectl
+
+Run the following commands to configure kubernetes clients:
+
+```sh
+terraform output kube_config > ~/.kube/aksconfig
+export KUBECONFIG=~/.kube/aksconfig
+```
+
+Test configuration using kubectl
+
+```sh
+kubectl get nodes
+```
+
 ## Cleanup
 
 You can cleanup the Terraform-managed infrastructure.
