@@ -1,6 +1,4 @@
-[![Build status](https://thorpoc.visualstudio.com/Thor/_apis/build/status/Infrastructure-CI)](https://thorpoc.visualstudio.com/Thor/_build/latest?definitionId=4)
-
-# Infrastructure
+# Iac (Infrastructure as Code)
 
 This repository contain terraform template to provision azure Pass/Iaas resources.
 
