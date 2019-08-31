@@ -15,7 +15,7 @@ variable "client_secret" {
 variable "resource_group_name" {
   type        = "string"
   description = "Name of the azure resource group."
-  default     = "aks-rg"
+  default     = "aks"
 }
 
 variable "resource_group_location" {
@@ -44,6 +44,11 @@ variable "environment" {
   type        = "string"
   description = "dev, test or production."
   default     = "dev"
+}
+
+variable "creationSource" {
+  type        = "string"
+  default     = "terraform"
 }
 
 variable "linux_admin_username" {
